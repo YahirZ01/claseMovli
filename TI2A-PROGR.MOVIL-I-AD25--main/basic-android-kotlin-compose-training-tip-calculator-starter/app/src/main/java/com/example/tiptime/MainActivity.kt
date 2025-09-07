@@ -17,6 +17,10 @@ package com.example.tiptime
 
 import android.os.Bundle
 import android.util.Log
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.annotation.DrawableRes
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.activity.ComponentActivity
@@ -55,6 +59,7 @@ import java.text.NumberFormat
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 
 
@@ -75,9 +80,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun EditNumberField(@StringRes label: Int, value: String, onValueChanged: (String) -> Unit,keyboardOptions: KeyboardOptions, modifier: Modifier = Modifier) {
+fun EditNumberField(@StringRes label: Int,  @DrawableRes leadingIcon: Int,value: String, onValueChanged: (String) -> Unit,keyboardOptions: KeyboardOptions, modifier: Modifier = Modifier) {
     TextField(
-
+        leadingIcon = { Icon(painter = painterResource(id = leadingIcon), null) },
         value = value,
         onValueChange = onValueChanged,
         singleLine = true,
@@ -115,7 +120,9 @@ fun TipTimeLayout() {
     var roundUp by remember { mutableStateOf(false) }
     val tip = calculateTip(amount, tipPercent, roundUp)
     Column(
-        modifier = Modifier.padding(40.dp),
+        modifier = Modifier
+            .padding(40.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -132,6 +139,7 @@ fun TipTimeLayout() {
                 imeAction = ImeAction.Next
             ),
             value = amountInput,
+            leadingIcon = R.drawable.money,
             onValueChanged = { amountInput = it },
             modifier = Modifier
                 .padding(bottom = 32.dp)
@@ -144,6 +152,7 @@ fun TipTimeLayout() {
                 imeAction = ImeAction.Done
             ),
             value = tipInput,
+            leadingIcon = R.drawable.percent,
             onValueChanged = { tipInput = it },
             modifier = Modifier
                 .padding(bottom = 32.dp)
