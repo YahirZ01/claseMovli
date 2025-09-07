@@ -102,7 +102,7 @@ fun RoundTheTipRow(roundUp: Boolean, onRoundUpChanged: (Boolean) -> Unit, modifi
         verticalAlignment = Alignment.CenterVertically
     ) {
     }
-
+45
     Switch(
         modifier = modifier
             .fillMaxWidth()
