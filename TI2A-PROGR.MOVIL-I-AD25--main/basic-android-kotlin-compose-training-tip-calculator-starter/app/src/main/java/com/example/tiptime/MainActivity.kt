@@ -17,6 +17,7 @@ package com.example.tiptime
 
 import android.os.Bundle
 import android.util.Log
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -29,6 +30,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -67,13 +69,14 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun EditNumberField(modifier: Modifier = Modifier) {
     //val amountInput = "0"
-    var amountInput  by remember { mutableStateOf("0")}
+    var amountInput by remember { mutableStateOf("0") }
 
     TextField(
         value = amountInput,
-        //onValueChange = { el -> Log.d("PERROX", el) },
-        //onValueChange = {  Log.d("PERROX", it) },
-        onValueChange = {  amountInput = it },
+        onValueChange = { amountInput = it },
+        singleLine = true,
+        label = { Text(stringResource(R.string.bill_amount)) },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         modifier = modifier
     )
 }
